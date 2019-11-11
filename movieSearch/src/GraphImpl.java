@@ -3,6 +3,7 @@ import java.util.*;
 public class GraphImpl implements IMDBGraph {
 
 	public Collection<? extends Node> getActors() {
+		
 		return null;
 	}
 
