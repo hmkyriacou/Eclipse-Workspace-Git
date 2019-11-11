@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class GraphNode<T> implements Node{
+public class GraphNode implements Node{
 
-	private T _data;
+	private String _data;
 	private ArrayList<Node> _neighbors;
 	
-	public GraphNode (T data) {
+	public GraphNode (String data) {
 		_data = data;
 	}
 	
