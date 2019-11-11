@@ -1,6 +1,21 @@
-public class GraphImpl {
-/**
- * THIS FILE IS NOT BIG ENOUGH FOR GIT TO GET ANGRY
- * IF YOU add the actors and actresses file git gets very angry
- */
+import java.util.*;
+
+public class GraphImpl implements IMDBGraph {
+
+	public Collection<? extends Node> getActors() {
+		return null;
+	}
+
+	public Collection<? extends Node> getMovies() {
+		return null;
+	}
+
+	public Node getMovie(String name) {
+		return null;
+	}
+
+	public Node getActor(String name) {
+		return null;
+	}
+
 }
