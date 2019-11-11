@@ -17,5 +17,8 @@ public class GraphImpl implements IMDBGraph {
 	public Node getActor(String name) {
 		return null;
 	}
+	public void c() {
+		return null;
+	}
 
 }
