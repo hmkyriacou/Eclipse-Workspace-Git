@@ -1,22 +1,22 @@
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class GraphNode implements Node{
+public class ActorNode implements Node{
 
 	private String _data;
-	private HashMap<String, Node> _neighbors = new HashMap<String, Node>();
+	private HashMap<String, MovieNode> _neighbors = new HashMap<String, MovieNode>();
 	
-	public GraphNode (String data) {
+	public ActorNode (String data) {
 		_data = data;
 	}
 	
-	public void addNode (Node node) {
+	public void addNode(MovieNode node) {
 		_neighbors.put(node.getName(), node);
+		
 	}
-	
 	public String getName() {
-		return _data;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public Collection<? extends Node> getNeighbors() {

@@ -5,9 +5,8 @@ import java.util.*;
 
 public class IMDBGraphImpl implements IMDBGraph {
 
-	private ArrayList<Node> _graph = new ArrayList<Node>();
-	private HashMap<String, Node> _people = new HashMap<String, Node>();
-	private HashMap<String, Node> _movies = new HashMap<String, Node>();
+	private HashMap<String, ActorNode> _people = new HashMap<String, ActorNode>();
+	private HashMap<String, MovieNode> _movies = new HashMap<String, MovieNode>();
 
 	public IMDBGraphImpl (String actorsFilePath, String actressesFilePath) throws IOException {
 		Scanner actors = new Scanner(new File (actorsFilePath), "ISO-8859-1");
@@ -24,13 +23,21 @@ public class IMDBGraphImpl implements IMDBGraph {
 		while (toParse.hasNextLine()) {
 			String nextLine = toParse.nextLine();
 			if (nextLine.indexOf("\t") > 0) {
-				String name = nextLine.substring(0, nextLine.indexOf("/t")+1);
-				String movieName = getMovieOnLine(nextLine);
-				_people.put(name, new GraphNode(name));
-				_movies.put(movieName, new GraphNode(movieName));
+				updateGraph(nextLine);
 			}
+			updateGraph(nextLine);
 		}
 
+	}
+	
+	private void updateGraph(String line) {
+		String name = line.substring(0, line.indexOf("/t")+1);
+		String movieName = getMovieOnLine(line);
+		_people.put(name, new ActorNode(name));
+		if (_movies.containsKey(movieName))
+			_movies.put(movieName, new MovieNode(movieName));
+		_people.get(name).addNode(_movies.get(movieName));
+		_movies.get(movieName).addNode(_people.get(name));
 	}
 
 	private String getMovieOnLine(String line) {
