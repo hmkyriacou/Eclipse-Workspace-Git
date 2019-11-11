@@ -1,8 +1,9 @@
 import java.util.*;
 
-public class GraphImpl implements IMDBGraph {
+public class IMDBGraphImpl implements IMDBGraph {
 
 	public Collection<? extends Node> getActors() {
+		
 		return null;
 	}
 
@@ -15,9 +16,6 @@ public class GraphImpl implements IMDBGraph {
 	}
 
 	public Node getActor(String name) {
-		return null;
-	}
-	public void c() {
 		return null;
 	}
 
