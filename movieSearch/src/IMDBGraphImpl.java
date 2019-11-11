@@ -20,21 +20,22 @@ public class IMDBGraphImpl implements IMDBGraph {
 	}
 
 	private void createGraph(Scanner toParse) {
+		String name = null;
 		while (toParse.hasNextLine()) {
 			String nextLine = toParse.nextLine();
 			if (nextLine.indexOf("\t") > 0) {
-				updateGraph(nextLine);
+				name = nextLine.substring(0, nextLine.indexOf("/t"));
+				_people.put(name, new ActorNode(name));
+				updateGraph(nextLine, name);
 			}
-			updateGraph(nextLine);
+			updateGraph(nextLine, name);
 		}
 
 	}
 	
-	private void updateGraph(String line) {
-		String name = line.substring(0, line.indexOf("/t")+1);
+	private void updateGraph(String line, String name) {
 		String movieName = getMovieOnLine(line);
-		_people.put(name, new ActorNode(name));
-		if (_movies.containsKey(movieName))
+		if (!_movies.containsKey(movieName))
 			_movies.put(movieName, new MovieNode(movieName));
 		_people.get(name).addNode(_movies.get(movieName));
 		_movies.get(movieName).addNode(_people.get(name));
