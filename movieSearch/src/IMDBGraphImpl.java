@@ -7,10 +7,16 @@ public class IMDBGraphImpl implements IMDBGraph {
 
 	private HashMap<String, ActorNode> _people = new HashMap<String, ActorNode>();
 	private HashMap<String, MovieNode> _movies = new HashMap<String, MovieNode>();
-
-	public IMDBGraphImpl (String actorsFilePath, String actressesFilePath) throws IOException {
-		Scanner actors = new Scanner(new File (actorsFilePath), "ISO-8859-1");
-		Scanner actresses = new Scanner(new File (actressesFilePath), "ISO-8859-1");
+	
+	public IMDBGraphImpl (String actorsFilePath, String actressesFilePath){
+		Scanner actors = null;
+		Scanner actresses = null;
+		try {
+			actors = new Scanner(new File (actorsFilePath), "ISO-8859-1");
+			actresses = new Scanner(new File (actressesFilePath), "ISO-8859-1");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		advanceToFirstName(actors);
 		advanceToFirstName(actresses);
@@ -23,8 +29,10 @@ public class IMDBGraphImpl implements IMDBGraph {
 		String name = null;
 		while (toParse.hasNextLine()) {
 			String nextLine = toParse.nextLine();
-			if (nextLine.indexOf("\t") > 0) {
-				name = nextLine.substring(0, nextLine.indexOf("/t"));
+			while (nextLine.equals("")) {nextLine = toParse.nextLine();}
+			int num = nextLine.indexOf("\t");
+			if (num > 0) {
+				name = nextLine.substring(0, num);
 				_people.put(name, new ActorNode(name));
 				updateGraph(nextLine, name);
 			}
@@ -53,7 +61,9 @@ public class IMDBGraphImpl implements IMDBGraph {
 	private void advanceToFirstName(Scanner toAdvance) {
 		while (toAdvance.hasNextLine()) {
 			String nextLine = toAdvance.nextLine();
+			while (nextLine.equals("")) {nextLine = toAdvance.nextLine();}
 			if (nextLine.contentEquals("Name\t\t\tTitles")) {
+				nextLine = toAdvance.nextLine();
 				nextLine = toAdvance.nextLine();
 				break;
 			}
@@ -61,20 +71,19 @@ public class IMDBGraphImpl implements IMDBGraph {
 	}
 
 	public Collection<? extends Node> getActors() {
-
-		return null;
+		return _people.values();
 	}
 
 	public Collection<? extends Node> getMovies() {
-		return null;
+		return _movies.values();
 	}
 
 	public Node getMovie(String name) {
-		return null;
+		return _movies.get(name);
 	}
 
 	public Node getActor(String name) {
-		return null;
+		return _people.get(name);
 	}
 
 }
