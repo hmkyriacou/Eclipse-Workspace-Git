@@ -34,7 +34,6 @@ public class IMDBGraphImpl implements IMDBGraph {
 			if (num > 0) {
 				name = nextLine.substring(0, num);
 				_people.put(name, new ActorNode(name));
-				updateGraph(nextLine, name);
 			}
 			updateGraph(nextLine, name);
 		}

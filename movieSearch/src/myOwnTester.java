@@ -11,6 +11,7 @@ public class myOwnTester {
 		System.out.println(_myGraph.getMovie("Movie3 (2003)"));
 		System.out.println(_myGraph.getActors());
 		System.out.println(_myGraph.getActor("Actor1"));
+		System.out.println(_myGraph.getActor("Actor2").getNeighbors());
 	}
 
 }

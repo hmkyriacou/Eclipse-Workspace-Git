@@ -1,28 +1,27 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 public class MovieNode implements Node {
 
 	private String _data;
-	private HashMap<String, ActorNode> _actors = new HashMap<String, ActorNode>();
+	private ArrayList<ActorNode> _actors = new ArrayList<ActorNode>();
 	
 	public MovieNode (String data) {
 		_data = data;
 	}
 	
 	public void addNode(ActorNode node) {
-		_actors.put(node.getName(), node);
+		_actors.add(node);
 		
 	}
 	
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return _data;
 	}
 
 	public Collection<? extends Node> getNeighbors() {
-		// TODO Auto-generated method stub
-		return null;
+		return _actors;
 	}
 
 }
