@@ -32,6 +32,15 @@ public class GraphPartialTester {
 	}
 
 	@Test
+	public void pathTest() {
+		final Node actor3 = imdbGraph.getActor("Actor3");
+		final Node actress1 = imdbGraph.getActor("Actress1");
+		final List<Node> shortestPath = searchEngine.findShortestPath(actor3, actress1);
+		assertNotNull(shortestPath);
+		assertTrue(shortestPath.size() == 5);
+	}
+	
+	@Test
 	/**
 	 * Just verifies that the graphs could be instantiated without crashing.
 	 */

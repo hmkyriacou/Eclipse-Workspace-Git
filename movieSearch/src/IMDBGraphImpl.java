@@ -61,7 +61,7 @@ public class IMDBGraphImpl implements IMDBGraph {
 		while (toAdvance.hasNextLine()) {
 			String nextLine = toAdvance.nextLine();
 			while (nextLine.equals("")) {nextLine = toAdvance.nextLine();}
-			if (nextLine.contentEquals("Name\t\t\tTitles")) {
+			if (nextLine.contains("Name\t\t\tTitles")) {
 				nextLine = toAdvance.nextLine();
 				nextLine = toAdvance.nextLine();
 				break;
