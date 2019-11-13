@@ -19,10 +19,10 @@ public class IMDBGraphImpl implements IMDBGraph {
 		}
 
 		advanceToFirstName(actors);
-		advanceToFirstName(actresses);
-
 		createGraph(actors);
+		advanceToFirstName(actresses);
 		createGraph(actresses);
+		
 	}
 
 	private void createGraph(Scanner toParse) {

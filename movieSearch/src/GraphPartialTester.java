@@ -16,7 +16,6 @@ public class GraphPartialTester {
 	 */
 	@Test(timeout=5000)
 	public void findShortestPath () throws IOException {
-		imdbGraph = new IMDBGraphImpl("actors_test.list", "actresses_test.list");
 		final Node actor1 = imdbGraph.getActor("Actor1");
 		final Node actress2 = imdbGraph.getActor("Actress2");
 		final List<Node> shortestPath = searchEngine.findShortestPath(actor1, actress2);
