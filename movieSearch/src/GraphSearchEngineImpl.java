@@ -20,7 +20,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine {
 			visitedNodes.add(n);
 			
 			for (Node x : n.getNeighbors()) {
-				if (nodesToVisit.contains(x) && !visitedNodes.contains(x)) {
+				if (!nodesToVisit.contains(x) && !visitedNodes.contains(x)) {
 					nodesToVisit.add(x);
 					distanceFromS.put(x, distanceFromS.get(n)+1);
 				}
@@ -30,34 +30,41 @@ public class GraphSearchEngineImpl implements GraphSearchEngine {
 			}
 			
 		}
-		
-		return backtrack(n, distanceFromS);
+		//System.out.println(n.getName());
+		return backtrack(n, distanceFromS, s);
 	}
 	
-	private List<Node> backtrack(Node t, HashMap<Node, Integer> distances){
+	private List<Node> backtrack(Node t, HashMap<Node, Integer> distances, Node s){
 		ArrayList<Node> visitedNodes = new ArrayList<Node>();
 		Queue<Node> nodesToVisit = new LinkedList<Node>();
 		ArrayList<Node> ret = new ArrayList<Node>();
 		
 		Node n;
+		nodesToVisit.add(t);
+		outerloop:
 		while (nodesToVisit.size() > 0) {
 			n = nodesToVisit.remove();
 			
 			visitedNodes.add(n);
 			
 			for (Node x : n.getNeighbors()) {
+				if (distances.get(n) == 1) {
+					break outerloop;
+				}
 				
 				if (distances.get(x) == distances.get(n)-1) {
 					ret.add(x);
-					break;
 				}
 				
-				if (nodesToVisit.contains(x) && !visitedNodes.contains(x)) {
+				
+				if (!nodesToVisit.contains(x) && !visitedNodes.contains(x)) {
 					nodesToVisit.add(x);
 				}
 			}
 		}
-		
+		ret.add(s);
+		Collections.reverse(ret);
+		ret.add(t);
 		return ret;
 	}
 

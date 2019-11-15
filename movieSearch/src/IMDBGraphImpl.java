@@ -34,14 +34,21 @@ public class IMDBGraphImpl implements IMDBGraph {
 			if (num > 0) {
 				name = nextLine.substring(0, num);
 				_people.put(name, new ActorNode(name));
+				System.out.println("Adding person: " + name);
 			}
 			updateGraph(nextLine, name);
+			if (/*_people.get(name) == null ||*/ _people.get(name).getNeighbors() == null || _people.get(name).getNeighbors().isEmpty()) {
+				System.out.println("Executed " + name);
+				_people.remove(name);
+			}
 		}
 
 	}
 	
 	private void updateGraph(String line, String name) {
 		String movieName = getMovieOnLine(line);
+		if (movieName == null || name == null)
+			return;
 		if (!_movies.containsKey(movieName))
 			_movies.put(movieName, new MovieNode(movieName));
 		_people.get(name).addNode(_movies.get(movieName));
@@ -53,6 +60,7 @@ public class IMDBGraphImpl implements IMDBGraph {
 		if (!ret.contains("(TV)") && ret.charAt(0) != '"') {
 			return ret.substring(0, ret.indexOf(')')+1);
 		}
+		//System.out.println("Didn't add media");
 		return null;
 
 	}
@@ -63,7 +71,7 @@ public class IMDBGraphImpl implements IMDBGraph {
 			while (nextLine.equals("")) {nextLine = toAdvance.nextLine();}
 			if (nextLine.contains("Name\t\t\tTitles")) {
 				nextLine = toAdvance.nextLine();
-				nextLine = toAdvance.nextLine();
+				//nextLine = toAdvance.nextLine();
 				break;
 			}
 		}
